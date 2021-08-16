@@ -1,11 +1,12 @@
 <?php
-    require('functions.php');
+require('functions.php');
 
-    $students = select("SELECT * FROM students");
+$students = select("SELECT * FROM students");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
     <title>Students</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
     <main>
@@ -37,18 +39,18 @@
                         </thead>
                         <tbody>
                             <?php $i = 1; ?>
-                            <?php foreach($students as $student) : ?>
+                            <?php foreach ($students as $student) : ?>
                                 <tr>
                                     <td><?= $i++ ?></td>
-                                    <td><?= $student["name"]?></td>
-                                    <td><?= $student["nrp"]?></td>
-                                    <td><?= $student["email"]?></td>
-                                    <td><?= $student["direction"]?></td>
+                                    <td><?= $student["name"] ?></td>
+                                    <td><?= $student["nrp"] ?></td>
+                                    <td><?= $student["email"] ?></td>
+                                    <td><?= $student["direction"] ?></td>
                                     <td>
                                         <img width="100" height="100" src="assets/img/<?= $student["image"] ?>" alt="">
                                     </td>
                                     <td>
-                                        <a href="">Edit</a> |
+                                        <a href="edit.php?id=<?= $student["id"] ?>">Edit</a> |
                                         <a href="delete.php?id=<?= $student["id"] ?>">Delete</a>
                                     </td>
                                 </tr>
@@ -61,4 +63,5 @@
     </main>
 
 </body>
+
 </html>

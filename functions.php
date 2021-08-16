@@ -40,5 +40,27 @@
         return mysqli_affected_rows($conn);
     }
 
+    function update($data){
+        global $conn;
+
+        $id = htmlspecialchars($data['id']);
+        $name = htmlspecialchars($data['name']);
+        $nrp = htmlspecialchars($data['nrp']);
+        $email = htmlspecialchars($data['email']);
+        $direction = htmlspecialchars($data['direction']);
+        $image = htmlspecialchars($data['image']);
+
+        $query ="UPDATE students SET
+                    name = '$name',  
+                    nrp = '$nrp',  
+                    email = '$email',  
+                    direction = '$direction',  
+                    image = '$image'
+                WHERE id = $id" ;
+        mysqli_query($conn,$query);
+
+        return mysqli_affected_rows($conn);
+    }
+
 
 ?>

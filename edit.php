@@ -1,21 +1,22 @@
 <?php
 require('functions.php');
+
+    $id = $_GET["id"];
+    $student = select("SELECT *FROM students WHERE id = $id")[0];
+
    if(isset($_POST["submit"])){
-       if(create($_POST) > 0){
+       if(update($_POST) > 0){
           echo "<script>
-                    alert('create student succeed!');
+                    alert('updated student succeed!');
                     document.location.href='index.php';
                 </script>";
        } else {
             echo "<script>
-                    alert('create student failed!');
+                    alert('updated student failed!');
                     document.location.href='index.php';
                 </script>";
        }
    }
-     
-   
-    
 ?>
 
 <!DOCTYPE html>
@@ -94,29 +95,32 @@ require('functions.php');
     <main>
         <div class="page-content">
             <form action="" method="POST">
-                <h1>Create Student</h1>
+                <h1>Edit Student</h1>
+                <div class="form-control">
+                    <input autocomplete="off" autofocus="on" type="hidden"   name="id" value="<?= $id ?>">
+                </div>
                 <div class="form-control">
                     <label for="">Name</label>
-                    <input autocomplete="off" autofocus="on" type="text" name="name">
+                    <input autocomplete="off" autofocus="on" type="text" value="<?= $student["name"] ?>" name="name">
                 </div>
                 <div class="form-control">
                     <label for="">NRP</label>
-                    <input autocomplete="off" type="text" name="nrp">
+                    <input autocomplete="off" type="text" value="<?= $student["nrp"] ?>" name="nrp">
                 </div>
                 <div class="form-control">
                     <label for="">Email</label>
-                    <input autocomplete="off" type="text" name="email">
+                    <input autocomplete="off" type="text" value="<?= $student["email"] ?>" name="email">
                 </div>
                 <div class="form-control">
                     <label for="">Direction</label>
-                    <input autocomplete="off" type="text" name="direction">
+                    <input autocomplete="off" type="text" value="<?= $student["direction"] ?>" name="direction">
                 </div>
                 <div class="form-control">
                     <label for="">Image</label>
-                    <input autocomplete="off" type="text" name="image">
+                    <input autocomplete="off" type="text" value="<?= $student["image"] ?>" name="image">
                 </div>
                 <div class="form-control">
-                    <button class="btn-submit" type="submit" name="submit">Submit</button>
+                    <button class="btn-submit" type="submit" name="submit">Update</button>
                 </div>
             </form>
         </div>
