@@ -3,7 +3,7 @@
 
      $conn = mysqli_connect('localhost','root','','phpdasar');
 
-     function select($query){
+     function query($query){
          global $conn;
          $result = mysqli_query($conn,$query);
          while($row = mysqli_fetch_assoc($result)){
@@ -11,6 +11,16 @@
          }
 
          return $rows;
+     }
+
+     function find($keyword){
+         $query ="SELECT * FROM students WHERE
+                    name LIKE '%$keyword%' OR
+                    nrp LIKE '%$keyword%' OR
+                    email LIKE '%$keyword%' OR
+                    direction LIKE '%$keyword%'
+                ";
+        return query($query);
      }
 
      function create($data){

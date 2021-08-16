@@ -1,7 +1,12 @@
 <?php
 require('functions.php');
 
-$students = select("SELECT * FROM students");
+$students = query("SELECT * FROM students");
+// $students = query("SELECT * FROM students ORDER BY id DESC"); /** ORDER BY */
+
+    //* feature find
+      isset($_POST["find"]) && $students = find($_POST["keywords"]);
+
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +18,29 @@ $students = select("SELECT * FROM students");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        form input , form button{
+            padding: .5rem;
+            font-size: 1.5rem;
+        }
+
+        .form-control{
+            display: flex;
+            column-gap: 10px;
+        }
+        
+
+        .form-control input{
+            width: 100%;
+        }
+        
+        .btn-search{
+            width: 20%;
+            color: #fff;
+            background: blue;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -25,6 +53,14 @@ $students = select("SELECT * FROM students");
                 </div>
                 <div class="article-body">
                     <a href="create.php" class="btn btn-create">Create students</a>
+
+                    <form action="" method="post">
+                        <div class="form-control">
+                            <input type="text" name="keywords">
+                            <button class="btn btn-search" type="submit" name="find">Search</button>
+                        </div>
+                    </form>
+
                     <table border="1px">
                         <thead>
                             <tr>
