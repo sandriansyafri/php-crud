@@ -35,3 +35,21 @@ td {
   padding: 15px;
   text-align: center;
 }
+
+.btn {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  letter-spacing: 1px;
+  border: none;
+  outline: none;
+}
+
+.btn-create {
+  text-decoration: none;
+  background: blue;
+  color: white;
+  margin: 10px 0;
+}

@@ -1,10 +1,7 @@
 <?php
     require('functions.php');
 
-    $students = query("SELECT * FROM students");
-
-       
-  
+    $students = select("SELECT * FROM students");
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +22,7 @@
                     <h1>Students</h1>
                 </div>
                 <div class="article-body">
+                    <a href="create.php" class="btn btn-create">Create students</a>
                     <table border="1px">
                         <thead>
                             <tr>
@@ -34,6 +32,7 @@
                                 <th>Email</th>
                                 <th>Direction</th>
                                 <th>Image</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +46,10 @@
                                     <td><?= $student["direction"]?></td>
                                     <td>
                                         <img width="100" height="100" src="assets/img/<?= $student["image"] ?>" alt="">
+                                    </td>
+                                    <td>
+                                        <a href="">Edit</a> |
+                                        <a href="delete.php?id=<?= $student["id"] ?>">Delete</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
