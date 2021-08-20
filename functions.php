@@ -14,13 +14,15 @@
      }
 
      function find($keyword){
+         
          $query ="SELECT * FROM students WHERE
                     name LIKE '%$keyword%' OR
                     nrp LIKE '%$keyword%' OR
                     email LIKE '%$keyword%' OR
                     direction LIKE '%$keyword%'
                 ";
-        return query($query);
+
+       return query($query);
      }
 
      function create($data){
@@ -71,6 +73,3 @@
 
         return mysqli_affected_rows($conn);
     }
-
-
-?>
