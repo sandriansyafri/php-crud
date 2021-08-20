@@ -1,6 +1,5 @@
 <?php
 
-
 $conn = mysqli_connect('localhost', 'root', '', 'phpdasar');
 
 function query($query)
@@ -124,6 +123,39 @@ function update($data)
                     direction = '$direction',  
                     image = '$image'
                 WHERE id = $id";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
+function register($data)
+{
+    global $conn;
+
+    $username = htmlspecialchars(strtolower(stripslashes($data['username'])));
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $confirm_password = mysqli_real_escape_string($conn, $data['confirm_password']);
+
+    $users = mysqli_query($conn, "SELECT *FROM users WHERE username = '$username'");
+    if (mysqli_fetch_assoc($users)) {
+        echo "<script>
+                alert('username name sudah ada')
+            </script>";
+        return false;
+    }
+
+    if ($password !== $confirm_password) {
+        echo "<script>
+                alert('password tidak sesuai')
+            </script>";
+        return false;
+    }
+
+    //encription
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO users VALUE ('','$username','$password')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
