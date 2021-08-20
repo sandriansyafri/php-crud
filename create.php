@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+if (!$_SESSION["login"]) {
+    header('Location: login.php');
+    exit;
+}
+
 require('functions.php');
 if (isset($_POST["submit"])) {
     if (create($_POST) > 0) {

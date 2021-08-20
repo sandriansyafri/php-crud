@@ -1,11 +1,18 @@
 <?php
-require('functions.php');
 
-$students = query("SELECT * FROM students");
-// $students = query("SELECT * FROM students ORDER BY id DESC"); /** ORDER BY */
+session_start();
 
-    //* feature find
-      isset($_POST["find"]) && $students = find($_POST["keywords"]);
+if (!$_SESSION["login"]) {
+    header('Location: login.php');
+    exit;
+}
+
+require 'functions.php';
+// $students = query("SELECT * FROM students");
+$students = query("SELECT * FROM students ORDER BY id DESC");
+/** ORDER BY */
+
+isset($_POST["find"]) && $students = find($_POST["keywords"]);
 
 ?>
 
@@ -19,27 +26,27 @@ $students = query("SELECT * FROM students");
     <title>Students</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        form input , form button{
+        form input,
+        form button {
             padding: .5rem;
             font-size: 1.5rem;
         }
 
-        .form-control{
+        .form-control {
             display: flex;
             column-gap: 10px;
         }
-        
 
-        .form-control input{
+
+        .form-control input {
             width: 100%;
         }
-        
-        .btn-search{
+
+        .btn-search {
             width: 20%;
             color: #fff;
             background: blue;
         }
-
     </style>
 </head>
 
