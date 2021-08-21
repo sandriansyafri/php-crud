@@ -1,5 +1,5 @@
 <?php
-
+require 'functions.php';
 session_start();
 
 if (!$_SESSION["login"]) {
@@ -7,9 +7,13 @@ if (!$_SESSION["login"]) {
     exit;
 }
 
-require 'functions.php';
-// $students = query("SELECT * FROM students");
-$students = query("SELECT * FROM students ORDER BY id DESC");
+$total_data = count(query('SELECT *FROM students'));
+$data_per_page = 4;
+$total_page = ceil($total_data / $data_per_page);
+$page_active = (isset($_GET["page"]) ? $_GET["page"] : 1);
+$first_data_page = ($data_per_page * $page_active) - $data_per_page;
+$students = query("SELECT * FROM students LIMIT $first_data_page, $data_per_page");
+// $students = query("SELECT * FROM students ORDER BY id DESC");
 /** ORDER BY */
 
 isset($_POST["find"]) && $students = find($_POST["keywords"]);
@@ -47,6 +51,10 @@ isset($_POST["find"]) && $students = find($_POST["keywords"]);
             color: #fff;
             background: blue;
         }
+
+        .page-active {
+            color: red;
+        }
     </style>
 </head>
 
@@ -67,6 +75,22 @@ isset($_POST["find"]) && $students = find($_POST["keywords"]);
                             <button class="btn btn-search" type="submit" name="find">Search</button>
                         </div>
                     </form>
+
+                    <br>
+                    <?php if ($page_active > 1) : ?>
+                        <a href="?page=<?= $page_active - 1  ?>">&lt;</a>
+                    <?php endif; ?>
+                    <?php for ($i = 1; $i <= $total_page; $i++) : ?>
+                        <?php if ($i == $page_active) : ?>
+                            <a class="page-active" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                        <?php else : ?>
+                            <a href="?page=<?= $i; ?>"><?= $i; ?></a>
+                        <?php endif; ?>
+                    <?php endfor ?>
+                    <?php if ($page_active < $total_page) : ?>
+                        <a href="?page=<?= $page_active + 1  ?>">&gt;</a>
+                    <?php endif; ?>
+
 
                     <table border="1px">
                         <thead>
@@ -100,6 +124,9 @@ isset($_POST["find"]) && $students = find($_POST["keywords"]);
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+
+                    <br>
+
                 </div>
             </article>
         </div>
